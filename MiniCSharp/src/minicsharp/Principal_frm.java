@@ -23,12 +23,13 @@ import javax.swing.filechooser.FileNameExtensionFilter;
  * @author diego
  */
 public class Principal_frm extends javax.swing.JFrame {
-
+    String NombreArchivo=null;
     /**
      * Creates new form Principal_frm
      */
     public Principal_frm() {
         initComponents();
+        MiniCSharp sharp = new MiniCSharp();
     }
 
     /**
@@ -152,12 +153,13 @@ public class Principal_frm extends javax.swing.JFrame {
     private void btn_cargarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cargarActionPerformed
         JFileChooser fc = new JFileChooser();
         fc.setFileSelectionMode( JFileChooser.FILES_AND_DIRECTORIES);
-        FileNameExtensionFilter filter = new FileNameExtensionFilter("TEXT FILES", "txt", "text");
+        FileNameExtensionFilter filter = new FileNameExtensionFilter("TEXT FILES", 
+                "txt", "text");
         fc.setFileFilter(filter);
         if( fc.showOpenDialog(this) == JFileChooser.APPROVE_OPTION ){
             txt_path.setText(fc.getSelectedFile().getAbsolutePath());
             txta_Input.setText("");
-            leer();
+            leer();            
         }
     }//GEN-LAST:event_btn_cargarActionPerformed
 
@@ -204,7 +206,9 @@ public class Principal_frm extends javax.swing.JFrame {
 			// Apertura del fichero y creacion de BufferedReader para poder
 			// hacer una lectura comoda (disponer del metodo readLine()).
 			archivo = new File (txt_path.getText());
-			fr = new FileReader (archivo);
+                        NombreArchivo=archivo.getName();
+                        NombreArchivo=NombreArchivo.replace(".txt", "");
+                        fr = new FileReader (archivo);
 			br = new BufferedReader(fr);
 			// Lectura del fichero
 			String linea;
@@ -248,10 +252,6 @@ public void ProbarLexerFile(String path) throws IOException{
         Token token=lexer.yylex();
         if(token==null){
             txta_Output.append("FIN");//mostrando los resultados
-            JOptionPane.showMessageDialog(null, 
-                    "InfoBox: Se ha analizado con éxito el archivo y se ha "
-                            + "creado un archivo de salida en la carpeta raíz."
-                    , "¡ATENCIÓN!",JOptionPane.INFORMATION_MESSAGE);
             return;
         }//termina evaluacion
         switch(token){
@@ -286,12 +286,16 @@ public void ProbarLexerFile(String path) throws IOException{
     // End of variables declaration//GEN-END:variables
 
     private void Escritor() {
-        File fichero=new File("fichero.out");//creando fichero txt en raiz
+        File fichero=new File(NombreArchivo+".out");//creando fichero txt en raiz
         PrintWriter writer;
         try{
             writer=new PrintWriter(fichero);
             writer.print(txta_Output.getText());//ingresado ecuacion
             writer.close();
+            JOptionPane.showMessageDialog(null, 
+                    "InfoBox: Se ha analizado con éxito el archivo y se ha "
+                            + "creado un archivo de salida en la carpeta raíz llamado "
+                            +NombreArchivo, "¡ATENCIÓN!",JOptionPane.INFORMATION_MESSAGE);
         }
         catch(FileNotFoundException ex){
             Logger.getLogger(Principal_frm.class.getName()).log(Level.SEVERE, null, ex);
