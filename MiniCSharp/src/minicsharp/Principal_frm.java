@@ -15,6 +15,7 @@ import java.io.Reader;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
@@ -140,6 +141,7 @@ public class Principal_frm extends javax.swing.JFrame {
 
     private void btn_analizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_analizarActionPerformed
         try {
+            txta_Output.setText("");
             ProbarLexerFile(txt_path.getText() );//llamando al metodo ProbarLexerFile();
             Escritor();
         }
@@ -154,6 +156,7 @@ public class Principal_frm extends javax.swing.JFrame {
         fc.setFileFilter(filter);
         if( fc.showOpenDialog(this) == JFileChooser.APPROVE_OPTION ){
             txt_path.setText(fc.getSelectedFile().getAbsolutePath());
+            txta_Input.setText("");
             leer();
         }
     }//GEN-LAST:event_btn_cargarActionPerformed
@@ -237,26 +240,34 @@ public void ProbarLexerFile(String path) throws IOException{
 //        Logger.getLogger(Principal_frm.class.getName()).log(Level.SEVERE, null, ex);
 //    }
     Reader reader;
-    reader = new BufferedReader(new FileReader("fichero.txt"));
+    reader = new BufferedReader(new FileReader(path));
     Lexer lexer=new Lexer(reader);
     String Resultados="";
     //se comienza a evaluar cada caracter
     while(true){
         Token token=lexer.yylex();
         if(token==null){
-            Resultados=Resultados+"FIN";
-            txta_Output.setText(Resultados);//mostrando los resultados
+            txta_Output.append("FIN");//mostrando los resultados
+            JOptionPane.showMessageDialog(null, 
+                    "InfoBox: Se ha analizado con éxito el archivo y se ha "
+                            + "creado un archivo de salida en la carpeta raíz."
+                    , "¡ATENCIÓN!",JOptionPane.INFORMATION_MESSAGE);
             return;
         }//termina evaluacion
         switch(token){
             case ERROR://aqui se guardan los errores de lo que no coincide 
-            Resultados=Resultados+"Error, el simbolo no coincide \n";
-            break;
+                txta_Output.append("*** Error line "+ 
+                    " unrecognized char: '"+lexer.yytext()+"'"
+                    + "\n");
+                break;
+            case suma:
             case Variable: 
             case Numero://aqui se guardan las variables y los numeros
-            Resultados=Resultados+"Token:"+token+" "+lexer.lexeme+"\n";
+                txta_Output.append("Token: "
+                        +token+" "+lexer.yytext()+"\n");
             default:
-            Resultados=Resultados+"Token:"+token+"\n";//se guardan los operandos +- etc
+                //txta_Output.append("Token:"+token+" "+
+                 //       lexer.yytext()+"\n");//se guardan los operandos +- etc
         }	
     }	
 }//termina mi edicion

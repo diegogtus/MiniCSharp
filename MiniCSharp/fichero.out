@@ -1,0 +1,21 @@
+Token: Numero 1
+Token: suma +
+Token: Numero 1
+*** Error line  unrecognized char: '@'
+*** Error line  unrecognized char: '@'
+Token: Numero 2
+Token: suma +
+Token: Numero 2
+Token: Numero 3
+Token: suma +
+Token: Numero 3
+Token: Numero 4
+Token: suma +
+Token: Numero 4
+Token: Numero 5
+Token: suma +
+Token: Numero 5
+Token: Numero 6
+Token: suma +
+Token: Numero 6
+FIN
