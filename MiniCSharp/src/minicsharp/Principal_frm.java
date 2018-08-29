@@ -102,7 +102,7 @@ public class Principal_frm extends javax.swing.JFrame {
                                 .addGap(97, 97, 97)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel2)
-                                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 451, Short.MAX_VALUE)))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel3)
                                 .addGap(18, 18, 18)
@@ -112,7 +112,7 @@ public class Principal_frm extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(321, 321, 321)
                         .addComponent(btn_analizar)))
-                .addContainerGap(137, Short.MAX_VALUE))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -154,7 +154,7 @@ public class Principal_frm extends javax.swing.JFrame {
         JFileChooser fc = new JFileChooser();
         fc.setFileSelectionMode( JFileChooser.FILES_AND_DIRECTORIES);
         FileNameExtensionFilter filter = new FileNameExtensionFilter("TEXT FILES", 
-                "txt", "text");
+                "txt", "text","frag");
         fc.setFileFilter(filter);
         if( fc.showOpenDialog(this) == JFileChooser.APPROVE_OPTION ){
             txt_path.setText(fc.getSelectedFile().getAbsolutePath());
@@ -246,25 +246,42 @@ public void ProbarLexerFile(String path) throws IOException{
     Reader reader;
     reader = new BufferedReader(new FileReader(path));
     Lexer lexer=new Lexer(reader);
-    String Resultados="";
+    int linea;
+    linea=1;
     //se comienza a evaluar cada caracter
     while(true){
         Token token=lexer.yylex();
         if(token==null){
             txta_Output.append("FIN");//mostrando los resultados
+            txta_Output.append("\n");
             return;
         }//termina evaluacion
         switch(token){
             case ERROR://aqui se guardan los errores de lo que no coincide 
-                txta_Output.append("*** Error line "+ 
-                    " unrecognized char: '"+lexer.yytext()+"'"
+                txta_Output.append("*** Error line "+ linea+
+                    "** Unrecognized char: '"+lexer.yytext()+"'"
                     + "\n");
+                txta_Output.append("\n");
                 break;
+            case salto:
+                linea++;
+                break;
+            case PUNTUACION:
+                txta_Output.append(lexer.yytext()+"           line "+linea+
+                       " is '" +lexer.yytext()+"'"+"\n");
+                txta_Output.append("\n");
+                break;
+            case CONSTANTE_BOOLEANA:
+            case CONSTANTE_ENTERA:              
+            case RESERVADA:
+            case IDENTIFICADOR:
             case suma:
             case Variable: 
             case Numero://aqui se guardan las variables y los numeros
-                txta_Output.append("Token: "
-                        +token+" "+lexer.yytext()+"\n");
+                txta_Output.append(lexer.yytext()+"           line "+linea+
+                       " is " +token+" "+"\n");
+                txta_Output.append("\n");
+                break;
             default:
                 //txta_Output.append("Token:"+token+" "+
                  //       lexer.yytext()+"\n");//se guardan los operandos +- etc
