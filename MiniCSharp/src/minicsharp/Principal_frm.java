@@ -248,9 +248,16 @@ public void ProbarLexerFile(String path) throws IOException{
     Lexer lexer=new Lexer(reader);
     int linea;
     linea=1;
+    
+    int columna;
+    int columnaI;
+    columnaI=1;
+    columna = 1;
     //se comienza a evaluar cada caracter
     while(true){
         Token token=lexer.yylex();
+        columnaI=columna;        
+        columna =  lexer.yylength();
         if(token==null){
             txta_Output.append("FIN");//mostrando los resultados
             txta_Output.append("\n");
@@ -262,24 +269,24 @@ public void ProbarLexerFile(String path) throws IOException{
                     "** Unrecognized char: '"+lexer.yytext()+"'"
                     + "\n");
                 txta_Output.append("\n");
+                columna++;
                 break;
             case salto:
                 linea++;
+                columna=1;
+                columnaI = 1;
                 break;
             case PUNTUACION:
-                txta_Output.append(lexer.yytext()+"           line "+linea+
-                       " is '" +lexer.yytext()+"'"+"\n");
+                txta_Output.append(lexer.yytext()+"           line "+linea+" column"+
+                      columnaI+"-"+columna+ " is '" +lexer.yytext()+"'"+"\n");
                 txta_Output.append("\n");
                 break;
             case CONSTANTE_BOOLEANA:
             case CONSTANTE_ENTERA:              
             case RESERVADA:
-            case IDENTIFICADOR:
-            case suma:
-            case Variable: 
-            case Numero://aqui se guardan las variables y los numeros
+            case IDENTIFICADOR: //aqui se guardan las variables y los numeros
                 txta_Output.append(lexer.yytext()+"           line "+linea+
-                       " is " +token+" "+"\n");
+                       " column"+  columnaI+"-"+columna+ " is " +token+" "+"\n");
                 txta_Output.append("\n");
                 break;
             default:

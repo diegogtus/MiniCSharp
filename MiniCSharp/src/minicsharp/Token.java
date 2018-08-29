@@ -10,5 +10,6 @@ package minicsharp;
  * @author diego
  */
 public enum Token {
-    CONSTANTE_BOOLEANA, CONSTANTE_ENTERA, PUNTUACION, RESERVADA,IDENTIFICADOR,salto, igual,suma, Variable, Numero, multiplicacion, division, resta, ERROR;
+    CONSTANTE_BOOLEANA, CONSTANTE_ENTERA, PUNTUACION, RESERVADA,IDENTIFICADOR,
+    salto, ERROR;
 }
