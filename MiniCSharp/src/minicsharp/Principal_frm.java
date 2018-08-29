@@ -139,8 +139,9 @@ public class Principal_frm extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_analizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_analizarActionPerformed
-         try  {
-        ProbarLexerFile();//llamando al metodo ProbarLexerFile();
+        try {
+            ProbarLexerFile(txt_path.getText() );//llamando al metodo ProbarLexerFile();
+            Escritor();
         }
         catch(IOException ex){
         System.out.println(ex.getMessage());}
@@ -224,17 +225,17 @@ public class Principal_frm extends javax.swing.JFrame {
     }
 //empieza mi edicion
           
-public void ProbarLexerFile() throws IOException{
-    File fichero=new File("fichero.txt");//creando fichero txt en raiz
-    PrintWriter writer;
-    try{
-        writer=new PrintWriter(fichero);
-        writer.print(txta_Input.getText());//ingresado ecuacion
-        writer.close();
-    }
-    catch(FileNotFoundException ex){
-        Logger.getLogger(Principal_frm.class.getName()).log(Level.SEVERE, null, ex);
-    }
+public void ProbarLexerFile(String path) throws IOException{
+//    File fichero=new File("fichero.txt");//creando fichero txt en raiz
+//    PrintWriter writer;
+//    try{
+//        writer=new PrintWriter(fichero);
+//        writer.print(txta_Input.getText());//ingresado ecuacion
+//        writer.close();
+//    }
+//    catch(FileNotFoundException ex){
+//        Logger.getLogger(Principal_frm.class.getName()).log(Level.SEVERE, null, ex);
+//    }
     Reader reader;
     reader = new BufferedReader(new FileReader("fichero.txt"));
     Lexer lexer=new Lexer(reader);
@@ -272,4 +273,17 @@ public void ProbarLexerFile() throws IOException{
     private javax.swing.JTextArea txta_Input;
     private javax.swing.JTextArea txta_Output;
     // End of variables declaration//GEN-END:variables
+
+    private void Escritor() {
+        File fichero=new File("fichero.out");//creando fichero txt en raiz
+        PrintWriter writer;
+        try{
+            writer=new PrintWriter(fichero);
+            writer.print(txta_Output.getText());//ingresado ecuacion
+            writer.close();
+        }
+        catch(FileNotFoundException ex){
+            Logger.getLogger(Principal_frm.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 }
