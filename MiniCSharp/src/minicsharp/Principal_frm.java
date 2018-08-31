@@ -256,20 +256,22 @@ public void ProbarLexerFile(String path) throws IOException{
     //se comienza a evaluar cada caracter
     while(true){
         Token token=lexer.yylex();
-        columnaI=columna;        
-        columna =  lexer.yylength();
+                
+        columna = columnaI+ lexer.yylength()-1;
         if(token==null){
             txta_Output.append("FIN");//mostrando los resultados
             txta_Output.append("\n");
             return;
         }//termina evaluacion
         switch(token){
-            case ERROR://aqui se guardan los errores de lo que no coincide 
+            case ERROR:
+                columna++;//aqui se guardan los errores de lo que no coincide 
                 txta_Output.append("*** Error line "+ linea+
                     "** Unrecognized char: '"+lexer.yytext()+"'"
                     + "\n");
                 txta_Output.append("\n");
-                columna++;
+                columnaI=columna;
+                
                 break;
             case salto:
                 linea++;
@@ -280,7 +282,10 @@ public void ProbarLexerFile(String path) throws IOException{
                 txta_Output.append(lexer.yytext()+"           line "+linea+" column"+
                       columnaI+"-"+columna+ " is '" +lexer.yytext()+"'"+"\n");
                 txta_Output.append("\n");
+                columnaI=columna;
                 break;
+            case STRING:
+            case CONSTANTE_DOUBLE:
             case CONSTANTE_BOOLEANA:
             case CONSTANTE_ENTERA:              
             case RESERVADA:
@@ -288,6 +293,7 @@ public void ProbarLexerFile(String path) throws IOException{
                 txta_Output.append(lexer.yytext()+"           line "+linea+
                        " column"+  columnaI+"-"+columna+ " is " +token+" "+"\n");
                 txta_Output.append("\n");
+                columnaI=columna;
                 break;
             default:
                 //txta_Output.append("Token:"+token+" "+

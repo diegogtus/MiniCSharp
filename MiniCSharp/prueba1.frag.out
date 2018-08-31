@@ -1,69 +1,69 @@
 *** Error line 1** Unrecognized char: '#'
 
-define           line 1 column1-6 is IDENTIFICADOR 
+define           line 1 column3-9 is IDENTIFICADOR 
 
-PROCEDURE           line 1 column6-9 is IDENTIFICADOR 
+PROCEDURE           line 1 column9-18 is IDENTIFICADOR 
 
-void           line 1 column9-4 is RESERVADA 
+void           line 1 column18-22 is RESERVADA 
 
 *** Error line 2** Unrecognized char: '#'
 
-define           line 2 column1-6 is IDENTIFICADOR 
+define           line 2 column3-9 is IDENTIFICADOR 
 
-BEGIN           line 2 column6-5 is IDENTIFICADOR 
+BEGIN           line 2 column9-14 is IDENTIFICADOR 
 
-{           line 2 column5-1 is '{'
+{           line 2 column14-15 is '{'
 
 *** Error line 3** Unrecognized char: '#'
 
-define           line 3 column1-6 is IDENTIFICADOR 
+define           line 3 column3-9 is IDENTIFICADOR 
 
-END           line 3 column6-3 is IDENTIFICADOR 
+END           line 3 column9-12 is IDENTIFICADOR 
 
-}           line 3 column3-1 is '}'
+}           line 3 column12-13 is '}'
 
 *** Error line 4** Unrecognized char: '#'
 
-define           line 4 column1-6 is IDENTIFICADOR 
+define           line 4 column3-9 is IDENTIFICADOR 
 
-BINKY           line 4 column6-5 is IDENTIFICADOR 
+BINKY           line 4 column9-14 is IDENTIFICADOR 
 
-2           line 4 column5-1 is CONSTANTE_ENTERA 
+2           line 4 column14-15 is CONSTANTE_ENTERA 
 
-+           line 4 column1-1 is '+'
++           line 4 column15-16 is '+'
 
-2           line 4 column1-1 is CONSTANTE_ENTERA 
+2           line 4 column16-17 is CONSTANTE_ENTERA 
 
-*           line 4 column1-1 is '*'
+*           line 4 column17-18 is '*'
 
-10           line 4 column1-2 is CONSTANTE_ENTERA 
+10           line 4 column18-20 is CONSTANTE_ENTERA 
 
 *** Error line 6** Unrecognized char: '#'
 
-PROCEDURE           line 6 column1-9 is IDENTIFICADOR 
+PROCEDURE           line 6 column3-12 is IDENTIFICADOR 
 
-main           line 6 column9-4 is IDENTIFICADOR 
+main           line 6 column12-16 is IDENTIFICADOR 
 
-()           line 6 column4-2 is '()'
+()           line 6 column16-18 is '()'
 
 *** Error line 7** Unrecognized char: '#'
 
-BEGIN           line 7 column1-5 is IDENTIFICADOR 
+BEGIN           line 7 column3-8 is IDENTIFICADOR 
 
-Print           line 8 column1-5 is IDENTIFICADOR 
+Print           line 8 column1-6 is IDENTIFICADOR 
 
-(           line 8 column5-1 is '('
+(           line 8 column6-7 is '('
 
 *** Error line 8** Unrecognized char: '#'
 
-BINKY           line 8 column1-5 is IDENTIFICADOR 
+BINKY           line 8 column9-14 is IDENTIFICADOR 
 
-)           line 8 column5-1 is ')'
+)           line 8 column14-15 is ')'
 
-;           line 8 column1-1 is ';'
+;           line 8 column15-16 is ';'
 
 *** Error line 9** Unrecognized char: '#'
 
-END           line 9 column1-3 is IDENTIFICADOR 
+END           line 9 column3-6 is IDENTIFICADOR 
 
 FIN

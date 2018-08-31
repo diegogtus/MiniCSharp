@@ -20,7 +20,7 @@ CommentContent       = ( [^*] | \*+ [^/*] )*
 
 Identifier = [:jletter:] [:jletterdigit:]*
 
-IntConstant = 0 | [1-9][0-9]* | [0X][A-F0-9]* |[0x][A-F0-9]*
+IntConstant = 0 | [1-9][0-9]* | [0Xx][0-9a-fA-F]+ 
 BoolConstant = "true" | "false"
 
 Reserved = "void" |"int"|"double"|"bool"|"string"|"class"|"interface"|"null"|
@@ -47,6 +47,9 @@ Puntuaction="+"| "-"| "*"| "/"| "%"| "<"| "<="| ">"| ">="| "="| "=="| "!="|
 
 {BoolConstant} {return CONSTANTE_BOOLEANA;}
 {IntConstant} {return CONSTANTE_ENTERA;}
+
+[-+]?[0-9]+"."|[-+]?[0-9]+"."([0-9]+|("E"|"e")[-+]?[0-9]+|[0-9]+("E"|"e")[-+]?[0-9]+) { return CONSTANTE_DOUBLE;}
+\"[^\r\n]+\" { return STRING;}
 
 [^]   {return ERROR;}
 
