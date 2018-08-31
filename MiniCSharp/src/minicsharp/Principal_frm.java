@@ -251,13 +251,13 @@ public void ProbarLexerFile(String path) throws IOException{
     
     int columna;
     int columnaI;
-    columnaI=1;
-    columna = 1;
+    columnaI=0;
+    columna = 0;
     //se comienza a evaluar cada caracter
     while(true){
         Token token=lexer.yylex();
                 
-        columna = columnaI+ lexer.yylength()-1;
+        columna = columnaI+ lexer.yylength();
         if(token==null){
             txta_Output.append("FIN");//mostrando los resultados
             txta_Output.append("\n");
@@ -275,8 +275,8 @@ public void ProbarLexerFile(String path) throws IOException{
                 break;
             case salto:
                 linea++;
-                columna=1;
-                columnaI = 1;
+                columna=0;
+                columnaI = 0;
                 break;
             case PUNTUACION:
                 txta_Output.append(lexer.yytext()+"           line "+linea+" column"+
@@ -284,18 +284,29 @@ public void ProbarLexerFile(String path) throws IOException{
                 txta_Output.append("\n");
                 columnaI=columna;
                 break;
+                case IDENTIFICADOR: //aqui se guardan las variables y los numeros
+                    if(lexer.yylength()>31){
+                        txta_Output.append(lexer.yytext()+"***Truncado por el largo***");
+                    }
+                    else{
+                        txta_Output.append(lexer.yytext()+"           line "+linea+
+                       " column"+  columnaI+"-"+columna+ " is " +token+" "+"\n");
+                        txta_Output.append("\n");
+                    }
+                columnaI=columna;
+                break;
             case STRING:
             case CONSTANTE_DOUBLE:
             case CONSTANTE_BOOLEANA:
             case CONSTANTE_ENTERA:              
-            case RESERVADA:
-            case IDENTIFICADOR: //aqui se guardan las variables y los numeros
+            case RESERVADA://aqui se guardan las variables y los numeros
                 txta_Output.append(lexer.yytext()+"           line "+linea+
                        " column"+  columnaI+"-"+columna+ " is " +token+" "+"\n");
                 txta_Output.append("\n");
                 columnaI=columna;
                 break;
             default:
+                break;
                 //txta_Output.append("Token:"+token+" "+
                  //       lexer.yytext()+"\n");//se guardan los operandos +- etc
         }	

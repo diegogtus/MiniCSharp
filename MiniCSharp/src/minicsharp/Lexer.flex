@@ -39,7 +39,7 @@ Puntuaction="+"| "-"| "*"| "/"| "%"| "<"| "<="| ">"| ">="| "="| "=="| "!="|
 {Comment}                      { /* ignore */ }
 {WhiteSpace}                   { /* ignore */ }
 
-"\n" {return salto;}
+[\n] {return salto;}
 
 {Reserved} {return RESERVADA;}
 {Identifier} {return IDENTIFICADOR;}

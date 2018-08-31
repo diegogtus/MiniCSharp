@@ -1,38 +1,75 @@
-int           line 1 is RESERVADA 
-a           line 1 is IDENTIFICADOR 
-;           line 1 is PUNTUACION 
-void           line 3 is RESERVADA 
-main           line 3 is IDENTIFICADOR 
-()           line 3 is PUNTUACION 
-{           line 3 is PUNTUACION 
-int           line 4 is RESERVADA 
-b           line 4 is IDENTIFICADOR 
-;           line 4 is PUNTUACION 
-int           line 5 is RESERVADA 
-a           line 5 is IDENTIFICADOR 
-;           line 5 is PUNTUACION 
-int           line 6 is RESERVADA 
-d           line 6 is IDENTIFICADOR 
-;           line 6 is PUNTUACION 
-d           line 8 is IDENTIFICADOR 
-=           line 8 is PUNTUACION 
-2           line 8 is CONSTANTE_ENTERA 
-+           line 8 is PUNTUACION 
-3           line 8 is CONSTANTE_ENTERA 
-*           line 8 is PUNTUACION 
-4           line 8 is CONSTANTE_ENTERA 
--           line 8 is PUNTUACION 
-6           line 8 is CONSTANTE_ENTERA 
-;           line 8 is PUNTUACION 
-b           line 9 is IDENTIFICADOR 
-=           line 9 is PUNTUACION 
-3           line 9 is CONSTANTE_ENTERA 
-;           line 9 is PUNTUACION 
-a           line 10 is IDENTIFICADOR 
-=           line 10 is PUNTUACION 
-b           line 10 is IDENTIFICADOR 
-+           line 10 is PUNTUACION 
-2           line 10 is CONSTANTE_ENTERA 
-;           line 10 is PUNTUACION 
-}           line 11 is PUNTUACION 
+int           line 1 column0-3 is RESERVADA 
+
+a           line 1 column3-4 is IDENTIFICADOR 
+
+;           line 1 column4-5 is ';'
+
+void           line 3 column0-4 is RESERVADA 
+
+main           line 3 column4-8 is IDENTIFICADOR 
+
+()           line 3 column8-10 is '()'
+
+{           line 3 column10-11 is '{'
+
+int           line 4 column0-3 is RESERVADA 
+
+b           line 4 column3-4 is IDENTIFICADOR 
+
+;           line 4 column4-5 is ';'
+
+int           line 5 column0-3 is RESERVADA 
+
+a           line 5 column3-4 is IDENTIFICADOR 
+
+;           line 5 column4-5 is ';'
+
+int           line 6 column0-3 is RESERVADA 
+
+d           line 6 column3-4 is IDENTIFICADOR 
+
+;           line 6 column4-5 is ';'
+
+d           line 8 column0-1 is IDENTIFICADOR 
+
+=           line 8 column1-2 is '='
+
+2           line 8 column2-3 is CONSTANTE_ENTERA 
+
++           line 8 column3-4 is '+'
+
+3           line 8 column4-5 is CONSTANTE_ENTERA 
+
+*           line 8 column5-6 is '*'
+
+4           line 8 column6-7 is CONSTANTE_ENTERA 
+
+-           line 8 column7-8 is '-'
+
+6           line 8 column8-9 is CONSTANTE_ENTERA 
+
+;           line 8 column9-10 is ';'
+
+b           line 9 column0-1 is IDENTIFICADOR 
+
+=           line 9 column1-2 is '='
+
+3           line 9 column2-3 is CONSTANTE_ENTERA 
+
+;           line 9 column3-4 is ';'
+
+a           line 10 column0-1 is IDENTIFICADOR 
+
+=           line 10 column1-2 is '='
+
+b           line 10 column2-3 is IDENTIFICADOR 
+
++           line 10 column3-4 is '+'
+
+2           line 10 column4-5 is CONSTANTE_ENTERA 
+
+;           line 10 column5-6 is ';'
+
+}           line 11 column0-1 is '}'
+
 FIN
