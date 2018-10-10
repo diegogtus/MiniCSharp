@@ -1,0 +1,29 @@
+1           line 1 is CONSTANTE_ENTERA 
++           line 1 is PUNTUACION 
+1           line 1 is CONSTANTE_ENTERA 
+*** Error line 1** Unrecognized char: '@'
+*** Error line 1** Unrecognized char: '@'
+2           line 2 is CONSTANTE_ENTERA 
++           line 2 is PUNTUACION 
+2           line 2 is CONSTANTE_ENTERA 
+3           line 3 is CONSTANTE_ENTERA 
++           line 3 is PUNTUACION 
+3           line 3 is CONSTANTE_ENTERA 
+IF           line 4 is IDENTIFICADOR 
+if           line 4 is RESERVADA 
+*           line 5 is PUNTUACION 
+/           line 5 is PUNTUACION 
+void           line 6 is RESERVADA 
+HOLA           line 6 is IDENTIFICADOR 
+HOLA           line 6 is IDENTIFICADOR 
+HOLA           line 6 is IDENTIFICADOR 
+4           line 8 is CONSTANTE_ENTERA 
++           line 8 is PUNTUACION 
+4           line 8 is CONSTANTE_ENTERA 
+5           line 10 is CONSTANTE_ENTERA 
++           line 10 is PUNTUACION 
+5           line 10 is CONSTANTE_ENTERA 
+6           line 10 is CONSTANTE_ENTERA 
++           line 10 is PUNTUACION 
+6           line 10 is CONSTANTE_ENTERA 
+FIN

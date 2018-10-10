@@ -1,0 +1,268 @@
+class           line 1 column0-5 is RESERVADA 
+
+Animal           line 1 column5-11 is IDENTIFICADOR 
+
+{           line 1 column11-12 is '{'
+
+int           line 1 column12-15 is RESERVADA 
+
+height           line 1 column15-21 is IDENTIFICADOR 
+
+;           line 1 column21-22 is ';'
+
+double           line 1 column22-28 is RESERVADA 
+
+weight           line 1 column28-34 is IDENTIFICADOR 
+
+;           line 1 column34-35 is ';'
+
+void           line 1 column35-39 is RESERVADA 
+
+Eat           line 1 column39-42 is IDENTIFICADOR 
+
+()           line 1 column42-44 is '()'
+
+{           line 1 column44-45 is '{'
+
+weight           line 1 column45-51 is IDENTIFICADOR 
+
+=           line 1 column51-52 is '='
+
+weight           line 1 column52-58 is IDENTIFICADOR 
+
+*           line 1 column58-59 is '*'
+
+2.0           line 1 column59-62 is CONSTANTE_DOUBLE 
+
+;           line 1 column62-63 is ';'
+
+}           line 1 column63-64 is '}'
+
+}           line 1 column64-65 is '}'
+
+class           line 1 column65-70 is RESERVADA 
+
+Cat           line 1 column70-73 is IDENTIFICADOR 
+
+extends           line 1 column73-80 is RESERVADA 
+
+Animal           line 1 column80-86 is IDENTIFICADOR 
+
+{           line 1 column86-87 is '{'
+
+string           line 1 column87-93 is RESERVADA 
+
+name           line 1 column93-97 is IDENTIFICADOR 
+
+;           line 1 column97-98 is ';'
+
+void           line 1 column98-102 is RESERVADA 
+
+Meow           line 1 column102-106 is IDENTIFICADOR 
+
+()           line 1 column106-108 is '()'
+
+{           line 1 column108-109 is '{'
+
+}           line 1 column109-110 is '}'
+
+int           line 1 column110-113 is RESERVADA 
+
+a           line 1 column113-114 is IDENTIFICADOR 
+
+;           line 1 column114-115 is ';'
+
+void           line 1 column115-119 is RESERVADA 
+
+main           line 1 column119-123 is IDENTIFICADOR 
+
+()           line 1 column123-125 is '()'
+
+{           line 1 column125-126 is '{'
+
+int           line 1 column126-129 is RESERVADA 
+
+b           line 1 column129-130 is IDENTIFICADOR 
+
+;           line 1 column130-131 is ';'
+
+int           line 1 column131-134 is RESERVADA 
+
+a           line 1 column134-135 is IDENTIFICADOR 
+
+;           line 1 column135-136 is ';'
+
+int           line 1 column136-139 is RESERVADA 
+
+d           line 1 column139-140 is IDENTIFICADOR 
+
+;           line 1 column140-141 is ';'
+
+bool           line 1 column141-145 is RESERVADA 
+
+TRUE           line 1 column145-149 is IDENTIFICADOR 
+
+=           line 1 column149-150 is '='
+
+false           line 1 column150-155 is CONSTANTE_BOOLEANA 
+
+;           line 1 column155-156 is ';'
+
+d           line 1 column156-157 is IDENTIFICADOR 
+
+=           line 1 column157-158 is '='
+
+0xa2F           line 1 column158-163 is CONSTANTE_ENTERA 
+
+;           line 1 column163-164 is ';'
+
+a           line 1 column164-165 is IDENTIFICADOR 
+
+=           line 1 column165-166 is '='
+
+0X00A1           line 1 column166-172 is CONSTANTE_ENTERA 
+
++           line 1 column172-173 is '+'
+
+d           line 1 column173-174 is IDENTIFICADOR 
+
+;           line 1 column174-175 is ';'
+
+d           line 1 column175-176 is IDENTIFICADOR 
+
+=           line 1 column176-177 is '='
+
+.           line 1 column177-178 is '.'
+
+12           line 1 column178-180 is CONSTANTE_ENTERA 
+
+E           line 1 column180-181 is IDENTIFICADOR 
+
++           line 1 column181-182 is '+'
+
+2           line 1 column182-183 is CONSTANTE_ENTERA 
+
+;           line 1 column183-184 is ';'
+
+b           line 1 column184-185 is IDENTIFICADOR 
+
+=           line 1 column185-186 is '='
+
+12.           line 1 column186-189 is CONSTANTE_DOUBLE 
+
+d           line 1 column189-190 is IDENTIFICADOR 
+
+=           line 1 column190-191 is '='
+
+12.E2           line 1 column191-196 is CONSTANTE_DOUBLE 
+
+a           line 1 column196-197 is IDENTIFICADOR 
+
+=           line 1 column197-198 is '='
+
+.           line 1 column198-199 is '.'
+
+1232           line 1 column199-203 is CONSTANTE_ENTERA 
+
+*           line 1 column203-204 is '*'
+
+.           line 1 column204-205 is '.'
+
+12           line 1 column205-207 is CONSTANTE_ENTERA 
+
+E           line 1 column207-208 is IDENTIFICADOR 
+
++           line 1 column208-209 is '+'
+
+-           line 1 column209-210 is '-'
+
+2           line 1 column210-211 is CONSTANTE_ENTERA 
+
+;           line 1 column211-212 is ';'
+
+}           line 1 column212-213 is '}'
+
+void           line 1 column213-217 is RESERVADA 
+
+main           line 1 column217-221 is IDENTIFICADOR 
+
+()           line 1 column221-223 is '()'
+
+{           line 1 column223-224 is '{'
+
+class           line 1 column224-229 is RESERVADA 
+
+Cat           line 1 column229-232 is IDENTIFICADOR 
+
+kitty           line 1 column232-237 is IDENTIFICADOR 
+
+;           line 1 column237-238 is ';'
+
+variable_whose_name_is_much_too is IDENTIFICADOR***Truncado por el largo***
+=           line 1 column274-275 is '='
+
+"hola como estas"           line 1 column275-292 is STRING 
+
+;           line 1 column292-293 is ';'
+
+kitty           line 1 column293-298 is IDENTIFICADOR 
+
+=           line 1 column298-299 is '='
+
+New           line 1 column299-302 is RESERVADA 
+
+(           line 1 column302-303 is '('
+
+Cat           line 1 column303-306 is IDENTIFICADOR 
+
+)           line 1 column306-307 is ')'
+
+;           line 1 column307-308 is ';'
+
+kitty           line 1 column308-313 is IDENTIFICADOR 
+
+.           line 1 column313-314 is '.'
+
+height           line 1 column314-320 is IDENTIFICADOR 
+
+=           line 1 column320-321 is '='
+
+0000005           line 1 column321-328 is CONSTANTE_ENTERA 
+
+;           line 1 column328-329 is ';'
+
+kitty           line 1 column329-334 is IDENTIFICADOR 
+
+.           line 1 column334-335 is '.'
+
+weight           line 1 column335-341 is IDENTIFICADOR 
+
+=           line 1 column341-342 is '='
+
+1.12E-000002           line 1 column342-354 is CONSTANTE_DOUBLE 
+
+besty           line 1 column354-359 is IDENTIFICADOR 
+
+.           line 1 column359-360 is '.'
+
+name           line 1 column360-364 is IDENTIFICADOR 
+
+=           line 1 column364-365 is '='
+
+"kitty"           line 1 column365-372 is STRING 
+
+;           line 1 column372-373 is ';'
+
+kitty           line 1 column373-378 is IDENTIFICADOR 
+
+.           line 1 column378-379 is '.'
+
+Meow           line 1 column379-383 is IDENTIFICADOR 
+
+()           line 1 column383-385 is '()'
+
+;           line 1 column385-386 is ';'
+
+}           line 1 column386-387 is '}'
+
+FIN
