@@ -14,6 +14,7 @@ import java.io.PrintWriter;
 import java.io.Reader;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java_cup.runtime.Symbol;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -255,16 +256,18 @@ public void ProbarLexerFile(String path) throws IOException{
     columna = 0;
     //se comienza a evaluar cada caracter
     while(true){
-        Token token=lexer.next_token();
+        Symbol token=lexer.next_token();
                 
         columna = columnaI+ lexer.yylength();
-        if(token==null){
+        if(token.sym ==0){
             txta_Output.append("FIN");//mostrando los resultados
             txta_Output.append("\n");
+            String[] ArchivoPrueba = {path};
+            Sintact.main(ArchivoPrueba);
             return;
         }//termina evaluacion
-        switch(token){
-            case ERROR:
+        switch(token.sym){
+            case 1:
                 columna++;//aqui se guardan los errores de lo que no coincide 
                 txta_Output.append("*** Error line "+ linea+
                     "** Unrecognized char: '"+lexer.yytext()+"'"
@@ -273,39 +276,39 @@ public void ProbarLexerFile(String path) throws IOException{
                 columnaI=columna;
                 
                 break;
-            case salto:
-                linea++;
-                columna=0;
-                columnaI = 0;
-                break;
-            case PUNTUACION:
-                txta_Output.append(lexer.yytext()+"           line "+linea+" column"+
-                      columnaI+"-"+columna+ " is '" +lexer.yytext()+"'"+"\n");
-                txta_Output.append("\n");
-                columnaI=columna;
-                break;
-            case STRING:
-            case CONSTANTE_DOUBLE:
-            case CONSTANTE_BOOLEANA:
-            case CONSTANTE_ENTERA:              
-            case RESERVADA://aqui se guardan las variables y los numeros
-                txta_Output.append(lexer.yytext()+"           line "+linea+
-                       " column"+  columnaI+"-"+columna+ " is " +token+" "+"\n");
-                txta_Output.append("\n");
-                columnaI=columna;
-                break;
-            case IDENTIFICADOR: //aqui se guardan las variables y los numeros
-                    if(lexer.yylength()>31){
-                        txta_Output.append( lexer.yytext().substring(0, 31)+" is "+token+
-                                "***Truncado por el largo***"+"\n");
-                    }
-                    else{
-                        txta_Output.append(lexer.yytext()+"           line "+linea+
-                       " column"+  columnaI+"-"+columna+ " is " +token+" "+"\n");
-                        txta_Output.append("\n");
-                    }
-                columnaI=columna;
-                break;
+//            case salto:
+//                linea++;
+//                columna=0;
+//                columnaI = 0;
+//                break;
+//            case PUNTUACION:
+//                txta_Output.append(lexer.yytext()+"           line "+linea+" column"+
+//                      columnaI+"-"+columna+ " is '" +lexer.yytext()+"'"+"\n");
+//                txta_Output.append("\n");
+//                columnaI=columna;
+//                break;
+//            case STRING:
+//            case CONSTANTE_DOUBLE:
+//            case CONSTANTE_BOOLEANA:
+//            case CONSTANTE_ENTERA:              
+//            case RESERVADA://aqui se guardan las variables y los numeros
+//                txta_Output.append(lexer.yytext()+"           line "+linea+
+//                       " column"+  columnaI+"-"+columna+ " is " +token+" "+"\n");
+//                txta_Output.append("\n");
+//                columnaI=columna;
+//                break;
+//            case IDENTIFICADOR: //aqui se guardan las variables y los numeros
+//                    if(lexer.yylength()>31){
+//                        txta_Output.append( lexer.yytext().substring(0, 31)+" is "+token+
+//                                "***Truncado por el largo***"+"\n");
+//                    }
+//                    else{
+//                        txta_Output.append(lexer.yytext()+"           line "+linea+
+//                       " column"+  columnaI+"-"+columna+ " is " +token+" "+"\n");
+//                        txta_Output.append("\n");
+//                    }
+//                columnaI=columna;
+//                break;
             default:
                 break;
                 //txta_Output.append("Token:"+token+" "+

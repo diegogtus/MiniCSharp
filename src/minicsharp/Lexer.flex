@@ -5,7 +5,7 @@ import java_cup.runtime.*;
 
 %public
 
-%class Yylex
+%class Lexer
 
 %unicode
 
@@ -94,27 +94,19 @@ Identifier = [:jletter:] [:jletterdigit:]*
 "}" { return symbol(sym.BRACKET_RIGHT, new String(yytext()));}
 "[]" { return symbol(sym.SBCHETES, new String(yytext()));}
 /*"()" { return symbol(sym.PARENTHESIS, new String(yytext()));}*/
-"{}"   { return symbol(sym.BRACKETS, new String(yytext()));}
+/*"{}"   { return symbol(sym.BRACKETS, new String(yytext()));}*/
 
 // STRINGs
-\"[^\r\n]+\"  { 
-                                                                        /*return "STRING: " + yytext() + " in line: " + (yyline + 1) + " columns: " + (yycolumn + 1) + " - " + ((yycolumn + 1) + yylength() - 1);*/
-                                                                        return symbol(sym.STRING, new String(yytext()));
-                                                                     }
+\"[^\r\n]+\"  { /*return "STRING: " + yytext() + " in line: " + (yyline + 1) + " columns: " + (yycolumn + 1) + " - " + ((yycolumn + 1) + yylength() - 1);*/
+                return symbol(sym.STRING, new String(yytext()));}
 
-// BOOLEANs
-"true" | "TRUE"                                                      { 
-                                                                        /*return "BOOLEAN: " + yytext() + " in line: " + (yyline + 1) + " columns: " + (yycolumn + 1) + " - " + ((yycolumn + 1) + yylength() - 1);*/ 
-                                                                        return symbol(sym.TRUE, new String(yytext()));
-                                                                    }
+"true" | "TRUE" { /*return "BOOLEAN: " + yytext() + " in line: " + (yyline + 1) + " columns: " + (yycolumn + 1) + " - " + ((yycolumn + 1) + yylength() - 1);*/ 
+                return symbol(sym.TRUE, new String(yytext()));}
 
-"false" | "FALSE"                                                      { 
-                                                                        /*return "BOOLEAN: " + yytext() + " in line: " + (yyline + 1) + " columns: " + (yycolumn + 1) + " - " + ((yycolumn + 1) + yylength() - 1);*/ 
-                                                                        return symbol(sym.FALSE, new String(yytext()));
-                                                                    }
+"false" | "FALSE" { /*return "BOOLEAN: " + yytext() + " in line: " + (yyline + 1) + " columns: " + (yycolumn + 1) + " - " + ((yycolumn + 1) + yylength() - 1);*/ 
+                   return symbol(sym.FALSE, new String(yytext())); }
 
-// RESERVED_WORDs
-/*{RESERVED_WORDS}                                                   { return "RESERVED WORD: " + yytext() + " in line: " + (yyline + 1) + " columns: " + (yycolumn + 1) + " - " + ((yycolumn + 1) + yylength() - 1); }*/
+/*{RESERVED_WORDS}  { return "RESERVED WORD: " + yytext() + " in line: " + (yyline + 1) + " columns: " + (yycolumn + 1) + " - " + ((yycolumn + 1) + yylength() - 1); }*/
 
 "void"  { return symbol(sym.VOID, new String(yytext())); }
 
@@ -166,60 +158,20 @@ Identifier = [:jletter:] [:jletterdigit:]*
 
 "SetByte" { return symbol(sym.SETBYTE, new String(yytext())); }
 
-// IDENTIFIERs
-{L}({L}|{D})*                                                    { 
-                                                                    if(yylength() > 31)
-                                                                    {
-                                                                        String aux = yytext().substring(0,31);
-                                                                        
-                                                                        //return "IDENTIFIER: " + aux + " in line: " + (yyline + 1) + " columns: " + (yycolumn + 1) + " - " + ((yycolumn + 1) + yylength() - 1) + " exceeded the max limit length. Identifier truncated.";                                                                       
-                                                                        return symbol(sym.IDENT, new String(aux));
-                                                                    }
-                                                                    else 
-                                                                    {
-                                                                        //return "IDENTIFIER: " + yytext() + " in line: " + (yyline + 1) + " columns: " + (yycolumn + 1) + " - " + ((yycolumn + 1) + yylength() - 1); 
-                                                                        return symbol(sym.IDENT, new String("IDENTIFIER: " + yytext()));
-                                                                    }
-                                                                 }
-// INTs
-{D}+	                                                        { 
-                                                                    //return "INTEGER: " + yytext() + " in line: " + (yyline + 1) + " columns: " + (yycolumn + 1) + " - " + ((yycolumn + 1) + yylength() - 1); 
-                                                                    return symbol(sym.INTCONSTANT, new Integer(yytext()));
-                                                                }
+{L}({L}|{D})* {  if(yylength() > 31){ String aux = yytext().substring(0,31);
+                 return symbol(sym.IDENT, new String(aux));}
+                else  {return symbol(sym.IDENT, new String("IDENTIFIER: " + yytext()));}}
 
-// HEXADECIMALs
-0[xX][0-9a-fA-F]+                                           { 
-                                                                //return "INTEGER HEXADECIMAL: " + yytext() + " in line: " + yyline + " columns: " + (yycolumn + 1) + " - " + ((yycolumn + 1) + yylength() - 1); 
-                                                                return symbol(sym.HEXADECIMAL, new String(yytext()));
-                                                            }
+{IntConstant} {  return symbol(sym.INTCONSTANT, new Integer(yytext()));}
 
-// DOUBLEs
-[-+]?[0-9]+"."|[-+]?[0-9]+"."([0-9]+|("E"|"e")[-+]?[0-9]+|[0-9]+("E"|"e")[-+]?[0-9]+)   {
-                                                                                            //return "DOUBLE: " + yytext() + " in line: " + (yyline + 1) + " columns: " + (yycolumn + 1) + " - " + ((yycolumn + 1) + yylength() - 1); 
-                                                                                            return symbol(sym.DOUBLECONSTANT, new String("DOUBLE: " + yytext()));
+[-+]?[0-9]+"."|[-+]?[0-9]+"."([0-9]+|("E"|"e")[-+]?[0-9]+|[0-9]+("E"|"e")[-+]?[0-9]+)   {  
+ return symbol(sym.DOUBLECONSTANT, new String("DOUBLE: " + yytext()));
                                                                                         }  
+[ \n]  {}
 
-// LINE COUNTER
-[ \n]                                                            { /*lleva la cuenta de lineas*/ }
+{WhiteSpace} { }
 
-// WHITESPACEs TABs BRAKELINEs NEWLINEs
-[\s]+                                                            { /*se ignoran los espacios y tabuladores*/ }
+{Comment} { }
 
-//UNFINISHED COMMENTs
-{UNFINISHED_COMMENT}                                            { 
-                                                                    //return "Unfinished comment " + yytext() + " found in line: " + (yyline + 1) + " columns: " + (yycolumn + 1) + " - " + ((yycolumn + 1) + yylength() - 1); 
-                                                                    System.out.print("Unfinished comment " + yytext() + " found in line: " + (yyline + 1) + " columns: " + (yycolumn + 1) + " - " + ((yycolumn + 1) + yylength() - 1));
-}
-
-//MULTILINE COMMENTs
-{MULTILINE_COMMENT}                                              { /*se ignoran los comentarios de bloque*/ }
-
-//SINGLELINE COMMENTs
-{SINGLELINE_COMMENT}                                             { /*se ignoran los comentarios de linea*/ }
-
-// ERRORs
-.	                                                         { 
-                                                                    lexeme = yytext(); line = (yyline + 1); column = (yycolumn + 1); length = yylength(); 
-                                                                    System.out.print("Lexical error: invalid token "); 
-                                                                }
+[^] {  System.out.print("Error lexicografico, token no reconocido"); }
 

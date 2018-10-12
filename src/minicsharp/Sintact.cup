@@ -3,7 +3,7 @@ package minicsharp;
 import java_cup.runtime.*;
 import java.io.FileReader;
 
-/*ERRORS CODE*/
+/*-------------------------------------------ERRORS------------------------------------*/
 parser code {:
 
     public void report_error(String message, Object info){
@@ -37,29 +37,34 @@ parser code {:
         m.append(" : " + message);
         System.err.println(m);
     }
+    public static void main(String[] args){
+        try {
+            System.out.println("\n** Resultados finales **");
+            Sintact sintact = new Sintact(
+                    new Lexer( new FileReader(args[0])));
+            Object result = sintact.parse().value;            
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
 :};
-/*TERMINALS AND NON TERMINALS*/
+/*---------------------------------------TERMINALS AND NON TERMINALS-------------------------*/
 
-terminal        ADD, SUBSTRACTION, MULT, DIV, MOD, MINUS, MINUS_EQUAL, GREATER, GREATER_EQUAL, ASSIGN, EQUAL, DIFFERENT, AND, OR, NOT, SEMI_COLON, COMA, POINT, SB_LEFT, SB_RIGHT, PAR_LEFT, PAR_RIGHT, BRACKET_LEFT, BRACKET_RIGHT, SBCHETES, PARENTHESIS, BRACKETS;
-terminal        VOID, INT, DOUBLE, HEXADECIMAL, BOOL, STRING, CLASS, INTERFACE, NULL, THIS, EXTENDS, IMPLEMENTS, FOR, WHILE, IF, ELSE, RETURN, BREAK, NEW, NEWARRAY, PRINT, READINTEGER, READLINE, MALLOC;
-terminal        TRUE, FALSE;
-terminal        INTEGER, IDENT, GETBYTE, SETBYTE, INTCONSTANT, DOUBLECONSTANT, BOOLCONSTANT, STRINGCONSTANT;
+terminal        ADD, SUBSTRACTION, MULT, DIV, MOD, MINUS, MINUS_EQUAL, GREATER, GREATER_EQUAL, ASSIGN, EQUAL, DIFFERENT, AND, OR, NOT, SEMI_COLON, COMA, POINT, SB_LEFT, SB_RIGHT, PAR_LEFT, PAR_RIGHT, BRACKET_LEFT, BRACKET_RIGHT, SBCHETES, PARENTHESIS, VOID, INT, DOUBLE, HEXADECIMAL, BOOL, STRING, CLASS, INTERFACE, NULL, THIS, EXTENDS, IMPLEMENTS, FOR, WHILE, IF, ELSE, RETURN, BREAK, NEW, NEWARRAY, PRINT, READINTEGER, READLINE, MALLOC,       TRUE,FALSE, IDENT, GETBYTE, SETBYTE, INTCONSTANT, DOUBLECONSTANT, BOOLCONSTANT, STRINGCONSTANT;
 
-non terminal    Program, Decl, VariableDecl, Variable, Type, FunctionDecl, Formals, ClassDecl, Field, InterfaceDecl, Prototype, StmtBlock, Stmt, IfStmt, WhileStmt, ForStmt, ReturnStmt, BreakStmt, PrintStmt, Expr, LValue, Call, LibCall, Actuals, Constant;
-non terminal    FunctionDecl2, Aux, Imp, ImpClass, ClField, InterP, Pro2, StmtNonConstant, StmtBlockStmt, StmtExpr, StmtConditional, PrintStmtExpr, CallActuals, Frm2;
+non terminal    StmtMid,Program, Decl, VariableDecl, Variable, Type, FunctionDecl, Formals, ClassDecl, Field, InterfaceDecl, Prototype, StmtBlock, Stmt, IfStmt, WhileStmt, ForStmt, ReturnStmt, BreakStmt, PrintStmt, Expr, LValue, Call, LibCall, Actuals, Constant,  FunctionDecl2, Aux, Imp, ImpClass, ClField, InterP, Pro2, StmtNonConstant, StmtBlockStmt, StmtExpr, StmtConditional, PrintStmtExpr, CallActuals, Frm2;
 
-/* Precedencias */
+/*------------------PRECEDENCE-------------------------------------------------------------*/
 precedence left ADD, SUBSTRACTION, MULT, DIV, MOD;
 precedence left MINUS, MINUS_EQUAL, GREATER, GREATER_EQUAL, ASSIGN, EQUAL, DIFFERENT, AND, OR, NOT;
 precedence left ELSE;
 /*precedence left PAR_RIGHT;*/
 /*precedence left IDENT;*/
 
-/* Declaracion de la gramatica */
+/* ---------------------------------GRAMMAR-------------------------------------------------*/
 Program ::= Program Decl| /* EPSILON */;
 
-Decl    ::= VariableDecl|   FunctionDecl
-        |   ClassDecl |   InterfaceDecl|   error SEMI_COLON|   error BRACKET_RIGHT;
+Decl    ::= VariableDecl|   FunctionDecl|   ClassDecl |   InterfaceDecl|   error SEMI_COLON|   error BRACKET_RIGHT;
 
 VariableDecl ::=    Variable SEMI_COLON ;
 
@@ -67,157 +72,83 @@ Variable ::=    Type IDENT;
 
 Type ::=    INT| DOUBLE| BOOL| STRING| IDENT|Type SBCHETES ;
 
-FunctionDecl ::=    Type FunctionDecl2|       VOID FunctionDecl2
-            ;
+FunctionDecl ::=    Type FunctionDecl2|       VOID FunctionDecl2;
 
-FunctionDecl2 ::=   IDENT PAR_LEFT Formals PAR_RIGHT StmtBlock
-                    ;
+FunctionDecl2 ::=   IDENT PAR_LEFT Formals PAR_RIGHT StmtBlock;
 
-Formals ::= Frm2 Variable
-        |   /* EPSILON */
-        ;
+Formals ::= Frm2 Variable|   /* EPSILON */;
 
 Frm2 ::= Frm2 Variable COMA |   /*EPSILON*/ ;
 
-ClassDecl   ::= CLASS IDENT Aux Imp BRACKET_LEFT ClField BRACKET_RIGHT
-        ;
+ClassDecl   ::= CLASS IDENT Aux Imp BRACKET_LEFT ClField BRACKET_RIGHT;
 
-Aux ::= EXTENDS IDENT
-        |   /* EPSILON */
-        ;
+Aux ::= EXTENDS IDENT|   /* EPSILON */;
 
-Imp  ::= IMPLEMENTS ImpClass
-            | /* EPSILON */
-            ;
+Imp  ::= IMPLEMENTS ImpClass| /* EPSILON */;
 
-ImpClass ::= ImpClass COMA IDENT
-                |   IDENT
-                ;
+ImpClass ::= ImpClass COMA IDENT|   IDENT;
 
-ClField  ::= ClField Field
-            | /* EPSILON */
-            ;
+ClField  ::= ClField Field| /* EPSILON */;
 
-Field   ::= VariableDecl
-        | FunctionDecl
-        ;
+Field   ::= VariableDecl | FunctionDecl;
 
-InterfaceDecl   ::= INTERFACE IDENT BRACKET_LEFT InterP BRACKET_RIGHT
-                ;
+InterfaceDecl   ::= INTERFACE IDENT BRACKET_LEFT InterP BRACKET_RIGHT;
 
-InterP  ::= InterP Prototype
-                    |   /* EPSILON */
-                    ;
+InterP  ::= InterP Prototype|   /* EPSILON */;
 
-Prototype   ::= Type Pro2
-            |   VOID Pro2
-            ;
+Prototype   ::= Type Pro2|   VOID Pro2;
 
-Pro2  ::= IDENT PAR_LEFT Formals PAR_RIGHT SEMI_COLON
-                ;
+Pro2  ::= IDENT PAR_LEFT Formals PAR_RIGHT SEMI_COLON;
 
-StmtBlock   ::= BRACKET_LEFT StmtNonConstant StmtBlockStmt BRACKET_RIGHT
-            ;
+StmtBlock   ::= BRACKET_LEFT StmtMid BRACKET_RIGHT;
 
-StmtNonConstant   ::= StmtNonConstant VariableDecl
-                        |   /* EPSILON */
-                        ;
+StmtNonConstant   ::=  VariableDecl|   Stmt;
 
-StmtBlockStmt   ::= Stmt StmtBlockStmt
-                |   /* EPSILON */
-                ;
+StmtBlockStmt   ::= Stmt StmtBlockStmt|   /* EPSILON */;
 
-Stmt    ::= StmtExpr SEMI_COLON
-        |   IfStmt
-        |   WhileStmt
-        |   ForStmt
-        |   BreakStmt
-        |   ReturnStmt
-        |   PrintStmt
-        |   StmtBlock
-        ;
+StmtMid ::= StmtNonConstant StmtMid | /* EPSILON */;
 
-StmtExpr    ::= Expr
-            |   /* EPSILON */   
-            ;
+Stmt    ::= StmtExpr SEMI_COLON|   IfStmt|   WhileStmt|   ForStmt|   BreakStmt|   ReturnStmt
+        |   PrintStmt|   StmtBlock;
 
-IfStmt  ::= IF PAR_LEFT Expr PAR_RIGHT Stmt StmtConditional
-        ;
+StmtExpr    ::= Expr|   /* EPSILON */ ;
 
-StmtConditional  ::= ELSE Stmt
-                |   /* EPSILON */
-                ;
+IfStmt  ::= IF PAR_LEFT Expr PAR_RIGHT Stmt StmtConditional;
 
-WhileStmt   ::= WHILE PAR_LEFT Expr PAR_RIGHT Stmt
-            ;
+StmtConditional  ::= ELSE Stmt| /* EPSILON */;
 
-ForStmt ::= FOR PAR_LEFT StmtExpr SEMI_COLON Expr SEMI_COLON StmtExpr PAR_RIGHT Stmt
-        ;
+WhileStmt   ::= WHILE PAR_LEFT Expr PAR_RIGHT Stmt  ;
 
-ReturnStmt  ::= RETURN Expr SEMI_COLON
-            ;
+ForStmt ::= FOR PAR_LEFT StmtExpr SEMI_COLON Expr SEMI_COLON StmtExpr PAR_RIGHT Stmt;
 
-BreakStmt ::=   BREAK SEMI_COLON
-            ;
+ReturnStmt  ::= RETURN Expr SEMI_COLON;
 
-PrintStmt   ::= PRINT PAR_LEFT PrintStmtExpr PAR_RIGHT SEMI_COLON
-            ;
+BreakStmt ::=   BREAK SEMI_COLON;
 
-PrintStmtExpr   ::= PrintStmtExpr COMA Expr
-                |   Expr
-                ;
+PrintStmt   ::= PRINT PAR_LEFT PrintStmtExpr PAR_RIGHT SEMI_COLON;
+
+PrintStmtExpr   ::= PrintStmtExpr COMA Expr|   Expr;
 
 Expr    ::= LValue ASSIGN Expr
-        |   Constant
-        |   LValue
-        |   THIS
-        |   Call
-        |   PAR_LEFT Expr PAR_RIGHT
-        |   Expr ADD Expr
-        |   Expr SUBSTRACTION Expr
-        |   Expr MULT Expr
-        |   Expr DIV Expr
-        |   Expr MOD Expr
-        |   SUBSTRACTION Expr
-        |   Expr MINUS Expr
-        |   Expr MINUS_EQUAL Expr
-        |   Expr GREATER Expr
-        |   Expr GREATER_EQUAL Expr
-        |   Expr EQUAL Expr
-        |   Expr DIFFERENT Expr
-        |   Expr AND Expr
-        |   Expr OR Expr
-        |   NOT Expr
-        |   NEW PAR_LEFT IDENT PAR_RIGHT
-        |   NEWARRAY PAR_LEFT Expr COMA Type PAR_RIGHT
-        |   READINTEGER PAR_LEFT PAR_RIGHT
-        |   READLINE PAR_LEFT PAR_RIGHT
-        |   MALLOC PAR_LEFT Expr PAR_RIGHT
-        ;
+        |   Constant |   LValue|   THIS| Call|   PAR_LEFT Expr PAR_RIGHT
+        |   Expr ADD Expr | Expr SUBSTRACTION Expr |   Expr MULT Expr
+        |   Expr DIV Expr |   Expr MOD Expr |   SUBSTRACTION Expr
+        |   Expr MINUS Expr|   Expr MINUS_EQUAL Expr |   Expr GREATER Expr |   Expr GREATER_EQUAL Expr
+        |   Expr EQUAL Expr|   Expr DIFFERENT Expr  |   Expr AND Expr
+        |   Expr OR Expr|   NOT Expr|   NEW PAR_LEFT IDENT PAR_RIGHT|   NEWARRAY PAR_LEFT Expr COMA Type PAR_RIGHT
+        |   READINTEGER PAR_LEFT PAR_RIGHT|   READLINE PAR_LEFT PAR_RIGHT
+        |   MALLOC PAR_LEFT Expr PAR_RIGHT ;
 
-LValue ::=  IDENT
-        |   Expr POINT IDENT
-        |   Expr SB_LEFT Expr SB_RIGHT
-        ;
+LValue ::=  IDENT|   Expr POINT IDENT|   Expr SB_LEFT Expr SB_RIGHT;
 
-Call    ::= IDENT PAR_LEFT Actuals PAR_RIGHT
-        |   Expr POINT IDENT CallActuals
-        |   Expr POINT LibCall CallActuals
-        ;
+Call    ::= IDENT PAR_LEFT Actuals PAR_RIGHT|   Expr POINT IDENT CallActuals
+        |   Expr POINT LibCall CallActuals;
 
-CallActuals ::= PAR_LEFT Actuals PAR_RIGHT
-            ;
-
+CallActuals ::= PAR_LEFT Actuals PAR_RIGHT;
+            
 LibCall ::= GETBYTE PAR_LEFT Expr PAR_RIGHT
-        |   SETBYTE PAR_LEFT Expr COMA Expr PAR_RIGHT
-        ;
+        |   SETBYTE PAR_LEFT Expr COMA Expr PAR_RIGHT;
 
-Actuals  ::= PrintStmtExpr
-         |   /* EPSILON */
-         ;
-Constant ::= INTCONSTANT
-        |   DOUBLECONSTANT
-        |   BOOLCONSTANT
-        |   STRINGCONSTANT
-        |   NULL
-;
+Actuals  ::= PrintStmtExpr |   /* EPSILON */;
+Constant ::= INTCONSTANT|   DOUBLECONSTANT |   BOOLCONSTANT
+        |   STRINGCONSTANT |   NULL;

@@ -25,39 +25,39 @@ public class MiniCSharp {
 
     public static void GenerarCup(String path){
         File output = new File(path);
-        String[] asintactico = { "-parser","Sintact", path};
+        String[] asinta = { "-parser","Sintact", path};
         try
         {
-            java_cup.Main.main(asintactico);
+            java_cup.Main.main(asinta);
         }
         catch (Exception ex)
         {
             Logger.getLogger(MiniCSharp.class.getName()).log(Level.SEVERE, null, ex);
         }
         /* Los archivos se generan en la carpeta raiz del proyecto, por lo que hay que moverlos para que funcionen correctamente*/
-        moveFile("Sintact.java");
-        moveFile("sym.java");
+        corregirRuta("Sintact.java");
+        corregirRuta("sym.java");
     }
     
-    public static boolean moveFile(String fileName)
+    public static boolean corregirRuta(String fileName)
     {
         boolean fileMoved = false;
         File file =  new File(fileName);
         if (file.exists())
         {
-            System.out.println("moving cup generated files to the correct path");
+            System.out.println("tratando de mover los archivos a la ruta correcta");
             Path currentRelativePath = Paths.get("");
             String newDir = currentRelativePath.toAbsolutePath().toString()
                     + File.separator + "src" + File.separator
-                    + "Lexic" + File.separator + file.getName();
+                    + "minicsharp" + File.separator + file.getName();
             if (file.renameTo(new File(newDir)))
             {
-                System.out.println("the cup generated file has been moved successfully.");
+                System.out.println("archivo movido con exito.");
                 fileMoved = true;
             }
             else
             {
-                System.out.println("ERROR, the file could not be moved.");                
+                System.out.println("No se pudo mover el archivo.");                
             }
         }
         else
