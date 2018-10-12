@@ -97,8 +97,7 @@ Identifier = [:jletter:] [:jletterdigit:]*
 /*"{}"   { return symbol(sym.BRACKETS, new String(yytext()));}*/
 
 // STRINGs
-\"[^\r\n]+\"  { /*return "STRING: " + yytext() + " in line: " + (yyline + 1) + " columns: " + (yycolumn + 1) + " - " + ((yycolumn + 1) + yylength() - 1);*/
-                return symbol(sym.STRING, new String(yytext()));}
+\"[^\r\n]+\"  { return symbol(sym.STRING, new String(yytext()));}
 
 "true" | "TRUE" { /*return "BOOLEAN: " + yytext() + " in line: " + (yyline + 1) + " columns: " + (yycolumn + 1) + " - " + ((yycolumn + 1) + yylength() - 1);*/ 
                 return symbol(sym.TRUE, new String(yytext()));}
@@ -173,4 +172,4 @@ Identifier = [:jletter:] [:jletterdigit:]*
 
 {Comment} { }
 
-[^] {  System.out.print("Error lexicografico, token no reconocido"); }
+[^] { }
