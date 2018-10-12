@@ -174,4 +174,3 @@ Identifier = [:jletter:] [:jletterdigit:]*
 {Comment} { }
 
 [^] {  System.out.print("Error lexicografico, token no reconocido"); }
-
